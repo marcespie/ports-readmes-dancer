@@ -1,0 +1,91 @@
+body {
+margin: 0;
+padding: 0;
+border: 0;
+background-color: #ddd;
+font-family: "Lucida Grande", "Bitstream Vera Sans", "Verdana";
+font-size: 13px;
+color: #333;
+}
+
+#content {
+background-color: white;
+border: 40px solid #aaa;
+border-left: 20px solid #aaa;
+padding-left: 20px;
+background-image: url("/images/openbsd-logo.gif");
+background-repeat: no-repeat;
+background-position: top right;
+}
+
+.three ul {
+-moz-column-count: 3;
+-webkit-column-count: 3;
+column-count: 3;
+list-style: none;
+}
+
+.smaller ul {
+list-style: none;
+font-size: 10px;
+font-family: courier;
+}
+
+h1 {
+font-size: 28px;
+color: #f00;
+background-color: #eee;
+border-width: 0;
+border-bottom: 1px;
+border-left: 1px;
+padding-left: 1ex;
+padding-bottom: 0.5ex;
+border-color: #880;
+border-style: solid;
+width: 40%;
+}
+
+h2 {
+font-size: 20px;
+font-style: oblique;
+color: #555;
+border-width: 0;
+border-bottom: 1px;
+margin-left: 1ex;
+padding-bottom: 0.5ex;
+border-color: #880;
+border-style: solid;
+}
+
+h3 {
+margin-left: -5px;
+font-size: 15px;
+font-style: oblique;
+color: #00e;
+border-bottom: 0px;
+margin-bottom: 0px;
+}
+
+.long h1 {
+width: 70%;
+}
+
+a  {color: #03c}
+a:hover {
+background-color: #03c;
+color: white;
+text-decoration: none;
+}
+
+#back a {
+font-size: 7px;
+padding: 0px;
+border: 0px;
+margin: 0px;
+}
+
+form {
+padding: 10px;
+background-color: #eee;
+border: 1px;
+}

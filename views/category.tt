@@ -1,0 +1,9 @@
+<div id="back"><a href="/">Home</a></div>
+<h1>Category <% name %></h1>
+<div class="three">
+    <ul>
+<% FOREACH c IN category %>
+    <li><a href="<% c.url | url %>"><% c.name | html %></a>
+<% END %>
+    </ul>
+</div>

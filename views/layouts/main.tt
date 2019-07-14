@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=<% settings.charset %>" />
+<title><% title %></title>
+<link rel="stylesheet" href="<% request.uri_base %>/css/style.css" />
+
+<script type="text/javascript" src="<% request.uri_base %>/javascripts/jquery.js"></script>
+</head>
+<body>
+<div id="content">
+<% content %>
+<form name="Search" action="/search" style="width: 60%;">
+<fieldset>
+<legend>Search</legend>
+<table border="0">
+<tr>
+<td>File<td><input type="text" name="file" value="<% params.file %>">
+<td>Descr<td><input type="text" name="descr" value="<% params.descr %>">
+<tr>
+<td>Path<td><input type="text" name="path" value="<% params.path %>">
+<td>Name<td><input type="text" name="pkgname" value="<% params.pkgname %>">
+<tr>
+<td>Category<td><input type="text" name="category" value="<% params.category %>">
+<td>Maintainer<td><input type="text" name="maintainer" value="<% params.maintainer %>">
+<tr>
+<td><td><input type="submit" value="Search!">
+</table>
+</fieldset>
+</form>
+</div>
+<div id="footer">
+<a href="/path/databases/ports-readmes-dancer">Ports Readmes</a>, powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
+</div>
+</body>
+</html>

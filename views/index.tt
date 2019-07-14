@@ -1,0 +1,8 @@
+<h1>Index by category</h1>
+<div class="three">
+    <ul>
+<% FOREACH c IN categories %>
+    <li><a href="<% c.url | url %>"><% c.name | html %></a>
+<% END %>
+    </ul>
+</div>
