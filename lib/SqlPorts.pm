@@ -55,21 +55,18 @@ my $info_req = $db->prepare(
 		_ports.homepage,
 		_descr.value,
 		fullpkgname,
-		permit_cd.value,
-		permit_ftp.value,
+		permit.value,
 		_email.value
 	    from _paths 
 	    	join _paths p2 on p2.id=_paths.pkgpath
 		join _Ports on _paths.id=_Ports.fullpkgpath 
 		left join _Descr on _paths.id=_Descr.fullpkgpath
-		join _keywords2 permit_cd 
-		    on _ports.permit_package_cdrom=permit_cd.keyref
-		join _keywords2 permit_ftp 
-		    on _ports.permit_package_ftp=permit_ftp.keyref
+		join _keywords2 permit
+		    on _ports.permit_package=permit.keyref
 		join _email on _ports.maintainer=_email.keyref
 	    where _paths.fullpkgpath=?});
-my ($id, $path, $simplepath, $comment, $homepage, $descr, $permit_cd, $permit_ftp, $maintainer);
-$info_req->bind_columns(\($id, $path,  $simplepath, $comment, $homepage, $descr, $fullpkgname, $permit_cd, $permit_ftp, $maintainer));
+my ($id, $path, $simplepath, $comment, $homepage, $descr, $permit, $maintainer);
+$info_req->bind_columns(\($id, $path,  $simplepath, $comment, $homepage, $descr, $fullpkgname, $permit, $maintainer));
 
 my $dep_req = $db->prepare(
 	q{select 
@@ -216,11 +213,8 @@ sub pkgpath
 		maintainer => $maintainer,
 		descr => $descr,
 		fullpkgname => $fullpkgname };
-	unless ($permit_cd =~ /yes/i) {
-		$e->{permit_cd} = $permit_cd;
-	}
-	unless ($permit_ftp =~ /yes/i) {
-		$e->{permit_ftp} = $permit_ftp;
+	unless ($permit =~ /yes/i) {
+		$e->{permit} = $permit;
 	}
 	$dep_req->execute($id);
 	while ($dep_req->fetch) {

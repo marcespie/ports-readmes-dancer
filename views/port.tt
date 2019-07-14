@@ -25,13 +25,9 @@ No homepage
 
 <h3>Maintainer</h3>
 <% maintainer | html %>
-<% IF permit_cd %>
-<h3>Distribution forbidden on cdroms</h3>
-<% permit_cd | html %>
-<% END %>
-<% IF permit_ftp %>
+<% IF permit %>
 <h3>Distribution forbidden on ftp</h3>
-<% permit_ftp | html %>
+<% permit | html %>
 <% END %>
 <% IF multi %>
 <h3>Multi-packages</h3>
