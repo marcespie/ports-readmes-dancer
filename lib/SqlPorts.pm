@@ -110,7 +110,7 @@ my ($multi, $subpath);
 $multi_req->bind_columns(\($multi, $subpath));
 my $only_for = $db->prepare(
 	q{select
-		_Arch.value
+		distinct(_Arch.value)
 	    from _OnlyForArch
 	    	join _Arch on _arch.keyref=_OnlyForArch.value
 	    where _OnlyForArch.fullpkgpath=?
@@ -120,7 +120,7 @@ my $arch;
 $only_for->bind_columns(\($arch));
 my $not_for = $db->prepare(
 	q{select
-		_Arch.value
+		distinct(_Arch.value)
 	    from _NotforArch
 	    	join _Arch on _arch.keyref=_NotForArch.value
 	    where _NotForArch.fullpkgpath=?
@@ -129,7 +129,7 @@ my $not_for = $db->prepare(
 $not_for->bind_columns(\($arch));
 my $cat_req = $db->prepare(
 	q{select
-		_categorykeys.value
+		distinct(_categorykeys.value)
 	    from _categories
 	    	join _categorykeys on _categorykeys.keyref=_categories.value
 	    where _categories.fullpkgpath=?
