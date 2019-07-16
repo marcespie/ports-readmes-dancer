@@ -8,8 +8,7 @@
 <H3>Description</H3>
 
 <pre>
-<% descr %>
-</pre>
+<% descr %></pre>
 <% IF homepage %>
 WWW: <a href="<% homepage | url %>"><% homepage | html %></a>
 <% ELSE %>
@@ -19,8 +18,7 @@ No homepage
 <% IF readme %>
 <h3>Readme</h3>
 <pre>
-<% readme %>
-</pre>
+<% readme %></pre>
 <% END %>
 
 <h3>Maintainer</h3>
