@@ -91,7 +91,7 @@ on <% b.arch | html %>:
 </div>
 <% END %>
 <%IF testdepends %>
-<h3><a href="#" id="test_depends_link">Test dependencies</a></h3>
+<h3><a id="test_depends_link">Test dependencies</a></h3>
 <div id="test-depends-list" style="display: none;" class="three">
 <ul>
 <% FOREACH d IN testdepends %>
