@@ -4,7 +4,7 @@
 </div>
 
 <H2><% fullpkgname | html %> &ndash; <% comment | html %>
-(<a href="http://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/<% simplepath | url %>">source</a>)</H2>
+(<a href="https://cvsweb.openbsd.org/ports/<% simplepath | url %>">source</a>)</H2>
 <H3>Description</H3>
 
 <pre>
