@@ -99,14 +99,6 @@ on <% b.arch | html %>:
 <% END %>
 </ul>
 </div>
-<script type="text/javascript">
-$('#test_depends_link').click(function() {
-	$('#test-depends-list').slideToggle('fast', function() {
-		// ok
-	});
-	return(false);
-    });
-</script>
 <% END %>
 <%IF reversedepends %>
 <h3><a href="#" id="reverse_depends_link">Reverse dependencies</a></h3>
@@ -117,14 +109,6 @@ $('#test_depends_link').click(function() {
 <% END %>
 </ul>
 </div>
-<script type="text/javascript">
-$('#reverse_depends_link').click(function() {
-	$('#reverse-depends-list').slideToggle('fast', function() {
-		// ok
-	});
-	return(false);
-    });
-</script>
 <% END %>
 <% IF files %>
 <h3><a href="#" id="files_list_link">Files</a></h3>
@@ -135,12 +119,4 @@ $('#reverse_depends_link').click(function() {
 <% END %>
 </ul>
 </div>
-<script type="text/javascript">
-$('#files_list_link').click(function() {
-	$('#files-list').slideToggle('fast', function() {
-		// ok
-	});
-	return(false);
-    });
-</script>
 <% END %>
