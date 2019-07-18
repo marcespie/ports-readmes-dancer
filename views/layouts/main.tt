@@ -8,7 +8,7 @@
 
 <div id="content">
 <% content %>
-<form name="Search" action="/search" style="width: 60%;">
+<form name="Search" action="/search">
 <fieldset>
 <legend>Search</legend>
 <table>

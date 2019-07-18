@@ -92,7 +92,7 @@ on <% b.arch | html %>:
 <% END %>
 <%IF testdepends %>
 <h3><a id="test_depends_link">Test dependencies</a></h3>
-<div id="test-depends-list" style="display: none;" class="three">
+<div id="test-depends-list" class="three">
 <ul>
 <% FOREACH d IN testdepends %>
 <li><a href="<% d.url | url %>"><% d.depends %></a>
@@ -110,7 +110,7 @@ $('#test_depends_link').click(function() {
 <% END %>
 <%IF reversedepends %>
 <h3><a href="#" id="reverse_depends_link">Reverse dependencies</a></h3>
-<div id="reverse-depends-list" style="display: none;" class="three">
+<div id="reverse-depends-list" class="three">
 <ul>
 <% FOREACH d IN reversedepends %>
 <li><a href="<% d.url | url %>"><% d.depends %></a>
@@ -128,7 +128,7 @@ $('#reverse_depends_link').click(function() {
 <% END %>
 <% IF files %>
 <h3><a href="#" id="files_list_link">Files</a></h3>
-<div id="files-list" style="display: none;" class="smaller">
+<div id="files-list" class="smaller">
 <ul>
 <% FOREACH a IN files %>
 <li><% a | html %>
