@@ -2,9 +2,9 @@
 <html lang=en>
 <meta charset="<% settings.charset %>">
 <title><% title %></title>
-<link rel="stylesheet" href="<% request.uri_base %>/css/style.css">
+<link rel="stylesheet" href="//<% request.host %>/css/style.css">
 
-<script src="<% request.uri_base %>/javascripts/jquery.js"></script>
+<script src="//<% request.host %>/javascripts/jquery.js"></script>
 
 <div id="content">
 <% content %>
