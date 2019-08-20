@@ -1,20 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-type" content="text/html; charset=<% settings.charset %>" />
+<!doctype html>
+<html lang=en>
+<meta charset="<% settings.charset %>">
 <title><% title %></title>
-<link rel="stylesheet" href="<% request.uri_base %>/css/style.css" />
+<link rel="stylesheet" href="//<% request.host %>/css/style.css">
 
-<script type="text/javascript" src="<% request.uri_base %>/javascripts/jquery.js"></script>
-</head>
-<body>
+<script src="//<% request.host %>/javascripts/jquery.js"></script>
+
 <div id="content">
 <% content %>
-<form name="Search" action="/search" style="width: 60%;">
+<form name="Search" action="/search">
 <fieldset>
 <legend>Search</legend>
-<table border="0">
+<table>
 <tr>
 <td>File<td><input type="text" name="file" value="<% params.file %>">
 <td>Descr<td><input type="text" name="descr" value="<% params.descr %>">
@@ -33,5 +30,4 @@
 <div id="footer">
 <a href="/path/databases/ports-readmes-dancer">Ports Readmes</a>, powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
 </div>
-</body>
-</html>
+<script type="text/javascript" src="//<% request.host %>/javascripts/script.js"></script>

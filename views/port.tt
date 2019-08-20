@@ -4,12 +4,11 @@
 </div>
 
 <H2><% fullpkgname | html %> &ndash; <% comment | html %>
-(<a href="http://cvsweb.openbsd.org/cgi-bin/cvsweb/ports/<% simplepath | url %>">source</a>)</H2>
+(<a href="https://cvsweb.openbsd.org/ports/<% simplepath | url %>">source</a>)</H2>
 <H3>Description</H3>
 
 <pre>
-<% descr %>
-</pre>
+<% descr %></pre>
 <% IF homepage %>
 WWW: <a href="<% homepage | url %>"><% homepage | html %></a>
 <% ELSE %>
@@ -19,8 +18,7 @@ No homepage
 <% IF readme %>
 <h3>Readme</h3>
 <pre>
-<% readme %>
-</pre>
+<% readme %></pre>
 <% END %>
 
 <h3>Maintainer</h3>
@@ -93,56 +91,32 @@ on <% b.arch | html %>:
 </div>
 <% END %>
 <%IF testdepends %>
-<h3><a href="#" id="test_depends_link">Test dependencies</a></h3>
-<div id="test-depends-list" style="display: none;" class="three">
+<h3><a id="test_depends_link">Test dependencies</a></h3>
+<div id="test-depends-list" class="three">
 <ul>
 <% FOREACH d IN testdepends %>
 <li><a href="<% d.url | url %>"><% d.depends %></a>
 <% END %>
 </ul>
 </div>
-<script type="text/javascript">
-$('#test_depends_link').click(function() {
-	$('#test-depends-list').slideToggle('fast', function() {
-		// ok
-	});
-	return(false);
-    });
-</script>
 <% END %>
 <%IF reversedepends %>
 <h3><a href="#" id="reverse_depends_link">Reverse dependencies</a></h3>
-<div id="reverse-depends-list" style="display: none;" class="three">
+<div id="reverse-depends-list" class="three">
 <ul>
 <% FOREACH d IN reversedepends %>
 <li><a href="<% d.url | url %>"><% d.depends %></a>
 <% END %>
 </ul>
 </div>
-<script type="text/javascript">
-$('#reverse_depends_link').click(function() {
-	$('#reverse-depends-list').slideToggle('fast', function() {
-		// ok
-	});
-	return(false);
-    });
-</script>
 <% END %>
 <% IF files %>
 <h3><a href="#" id="files_list_link">Files</a></h3>
-<div id="files-list" style="display: none;" class="smaller">
+<div id="files-list" class="smaller">
 <ul>
 <% FOREACH a IN files %>
 <li><% a | html %>
 <% END %>
 </ul>
 </div>
-<script type="text/javascript">
-$('#files_list_link').click(function() {
-	$('#files-list').slideToggle('fast', function() {
-		// ok
-	});
-	return(false);
-    });
-</script>
 <% END %>

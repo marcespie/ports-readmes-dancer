@@ -88,4 +88,9 @@ form {
 padding: 10px;
 background-color: #eee;
 border: 1px;
+width: 60%;
+}
+
+#test-depends-list, #reverse-depends-list, #files-list {
+display: none;
 }
