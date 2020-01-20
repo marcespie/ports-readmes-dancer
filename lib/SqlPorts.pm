@@ -303,9 +303,10 @@ sub search
 		my %h;
 		if (open(my $fh, "-|", config->{pkglocate}, $search->{file})) {
 			while (<$fh>) {
-				if (m/^.*?\:(.*?)\:/) {
-					$h{$1} = 1;
-				}
+				next unless m/^.*?\:(.*?)\:(.*)/;
+				my ($pkgpath, $filepath) = ($1, $2);
+				next unless $filepath =~ m/\Q$search->{file}\E/;
+				$h{$pkgpath} = 1;
 			}
 			close $fh;
 			push(@where, "_paths.fullpkgpath in (".join(', ', map {$db->quote($_)} keys %h).")");
@@ -346,7 +347,7 @@ sub search
 	$s = qq{select
 		_paths.fullpkgpath, fullpkgname
 	    from _paths
-		join _Ports on _paths.id=_Ports.fullpkgpath
+		join _Ports on _paths.canonical=_Ports.fullpkgpath
 		$s
 		order by fullpkgname
 		};
