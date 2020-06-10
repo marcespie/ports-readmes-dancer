@@ -55,14 +55,14 @@ No homepage
 <% END %>
 <% IF broken %>
 <h3>Broken</h3>
-<p>
 <% FOREACH b IN broken %>
+<p>
 <% IF b.arch %>
 on <% b.arch | html %>: 
 <% END %>
 <% b.text | html %>
-<% END %>
 </p>
+<% END %>
 <% END %>
 
 <h3>Categories</h3>
