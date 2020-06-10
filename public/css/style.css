@@ -7,13 +7,29 @@ font-family: sans-serif;
 color: #333;
 }
 
-#content {
-background-color: white;
-border: 1em solid #aaa;
-padding: 1em;
-background-image: url("/images/openbsd-logo.gif");
-background-repeat: no-repeat;
-background-position: top right;
+#toolbar, #content, #footer, #search_form {
+background-color: #ffffff;
+padding: .5em;
+margin: .5em;
+}
+
+#toolbar {
+text-align: center;
+padding: .3em;
+}
+
+#toolbar a {
+text-decoration:none;
+color: inherit;
+}
+
+#toolbar span#Open {
+color: #0000ff;
+font-style: oblique;
+}
+
+#toolbar span#BSD {
+color: #000084;
 }
 
 .three ul {
@@ -34,48 +50,25 @@ font-family: monospace;
 padding: 0;
 }
 
-h1 {
-color: #f00;
-background-color: #eee;
-border-width: 0;
-border-bottom: 1px;
-border-left: 1px;
-padding-left: 0.5em;
+#content h1 {
+color: #b93704;
 padding-bottom: 0.25em;
-border-color: #880;
-border-style: solid;
-width: 40%;
 }
 
-h2 {
+#content h2 {
 font-style: oblique;
-color: #555;
-border-width: 0;
-border-bottom: 1px;
-padding-bottom: 0.5em;
-border-color: #880;
-border-style: solid;
+color: #4177e2;
 }
 
-h3, h3 > a {
-margin-left: -5px;
+#content h3, h3 > a {
+margin-left: 0em;
 font-style: oblique;
-color: #00e;
-border-bottom: 0px;
+color: #214da5;
 margin-bottom: 0px;
 }
 
 .long h1 {
 width: 70%;
-}
-
-a  {
-color: #03c;
-}
-a:hover {
-background-color: #03c;
-color: white;
-text-decoration: none;
 }
 
 #back a {
@@ -84,10 +77,20 @@ border: 0px;
 margin: 0px;
 }
 
+a  {
+color: #03c;
+}
+
+a:hover {
+background-color: #03c;
+color: #ffffff;
+text-decoration: none;
+}
+
 #search_form {
-background-color: #eee;
-margin-top: 1em;
-padding: 1em;
+background-color: #fafafa;
+margin-top: .5em;
+padding: .5em;
 display: flex;
 flex-direction: column;
 }
@@ -116,10 +119,48 @@ margin: .5em auto;
 font-weight: bold;
 }
 
+#footer {
+text-align: center;
+}
+
 pre {
 white-space: pre-wrap;
 }
 
 #test-depends-list, #reverse-depends-list, #files-list {
 display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+
+body {
+background-color: #222;
+}
+
+#content, #toolbar, #footer {
+background-color: #111;
+color: #eee;
+}
+
+#search_form {
+background-color: #111;
+color: #eee;
+}
+
+#content h3, h3 > a, #content h2 {
+color: #f2ca30;
+}
+
+a {
+color: #bdf;
+}
+
+#toolbar span#Open {
+color: #f2ca30;
+}
+
+#content h1, #toolbar span#BSD {
+color: #cf4229;
+}
+
 }
