@@ -22,43 +22,55 @@ No homepage
 <% END %>
 
 <h3>Maintainer</h3>
-<% maintainer | html %>
+<p><% maintainer | html %></p>
 <% IF permit %>
 <h3>Distribution forbidden on ftp</h3>
+<p>
 <% permit | html %>
+</p>
 <% END %>
 <% IF multi %>
 <h3>Multi-packages</h3>
+<p>
 <% FOREACH m IN multi %>
 <a href="<% m.url | url %>"><% m.name | html %></a>
 <% END %>
+</p>
 <% END %>
 <% IF only_for %>
 <h3>Only for arches</h3>
+<p>
 <% FOREACH a IN only_for %>
 <% a | html %>
 <% END %>
+</p>
 <% END %>
 <% IF not_for %>
 <h3>Not for arches</h3>
+<p>
 <% FOREACH a IN not_for %>
 <% a | html %>
 <% END %>
+</p>
 <% END %>
 <% IF broken %>
 <h3>Broken</h3>
+<p>
 <% FOREACH b IN broken %>
 <% IF b.arch %>
 on <% b.arch | html %>: 
 <% END %>
 <% b.text | html %>
 <% END %>
+</p>
 <% END %>
 
 <h3>Categories</h3>
+<p>
 <% FOREACH c IN category %>
 <a href="<% c.url | url %>"><% c.name | html %></a>
 <% END %>
+</p>
 
 <%IF libdepends %>
 <h3>Library dependencies</h3>
@@ -91,7 +103,7 @@ on <% b.arch | html %>:
 </div>
 <% END %>
 <%IF testdepends %>
-<h3><a id="test_depends_link">Test dependencies</a></h3>
+<h3><a href="#" id="test_depends_link">Test dependencies</a></h3>
 <div id="test-depends-list" class="three">
 <ul>
 <% FOREACH d IN testdepends %>
