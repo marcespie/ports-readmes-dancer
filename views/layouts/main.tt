@@ -28,6 +28,6 @@
 </form>
 </div>
 <div id="footer">
-<a href="/path/databases/ports-readmes-dancer">Ports Readmes</a>, powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
+<a href="/path/databases/ports-readmes-dancer">Ports Readmes <% version %></a>, created on <% creation_date %>, powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
 </div>
 <script type="text/javascript" src="//<% request.host %>/javascripts/script.js"></script>

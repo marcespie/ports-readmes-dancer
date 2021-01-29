@@ -29,7 +29,6 @@ my $list_req = $db->prepare(
 	    order by _categorykeys.value
 	    });
 $list_req->bind_columns(\($category));
-$list_req->execute;
 
 my $list_cat_req = $db->prepare(
 	q{select min(_paths.fullpkgpath),
@@ -168,7 +167,26 @@ my $canonical_req = $db->prepare(
 my $canonical;
 $canonical_req->bind_columns(\$canonical);
 	    
-my $e;
+my ($version, $creation_date);
+
+my $meta_req = $db->prepare(
+	q{select SchemaVersion, CreationDate from meta});
+$meta_req->bind_columns(\$version, \$creation_date);
+$meta_req->execute;
+while ($meta_req->fetch) {
+}
+
+sub create_hash
+{
+	return {
+	    version => $version,
+	    creation_date => $creation_date,
+	    @_
+	};
+}
+
+my $e = create_hash();
+$list_req->execute;
 while ($list_req->fetch) {
 	push(@{$e->{categories}}, {
 		name => $category,
@@ -185,7 +203,7 @@ sub category
 {
 	my ($class, $cat) = @_;
 	$list_cat_req->execute($cat);
-	my $e = { name => $cat };
+	my $e = create_hash( name => $cat );
 	while ($list_cat_req->fetch) {
 		push(@{$e->{category}}, {
 			name => $fullpkgname,
@@ -206,13 +224,13 @@ sub pkgpath
 	}
 	# zap the email part
 	$maintainer =~ s/\s+\<.*?\>//g;
-	my $e = { path => $path,
+	my $e = create_hash( path => $path,
 		simplepath => $simplepath,
 		comment => $comment,
 		homepage => $homepage,
 		maintainer => $maintainer,
 		descr => $descr,
-		fullpkgname => $fullpkgname };
+		fullpkgname => $fullpkgname );
 	unless ($permit =~ /yes/i) {
 		$e->{permit} = $permit;
 	}
@@ -354,7 +372,7 @@ sub search
 	my $req = $db->prepare($s);
 	$req->bind_columns(\($fullpkgpath, $fullpkgname));
 	$req->execute(@params);
-	my $e = {};
+	my $e = create_hash();
 	while ($req->fetch) {
 		push(@{$e->{result}}, {
 			name => $fullpkgname,
