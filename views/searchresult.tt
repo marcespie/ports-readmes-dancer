@@ -2,6 +2,9 @@
 <h1>Search result</h1>
 <div class="three">
     <ul>
+<% IF NOT result %>
+    <p>No results found for your query.</p>
+<% END %>
 <% FOREACH c IN result %>
     <li><a href="<% c.url | url %>"><% c.name | html %></a>
 <% END %>
