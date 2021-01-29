@@ -1,33 +1,52 @@
 <!doctype html>
 <html lang=en>
+<head>
 <meta charset="<% settings.charset %>">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title><% title %></title>
 <link rel="stylesheet" href="//<% request.host %>/css/style.css">
 
 <script src="//<% request.host %>/javascripts/jquery.js"></script>
-
+</head>
+<body>
 <div id="content">
 <% content %>
+<div id="search_form" class="search_form">
 <form name="Search" action="/search">
 <fieldset>
 <legend>Search</legend>
-<table>
-<tr>
-<td>File<td><input type="text" name="file" value="<% params.file %>">
-<td>Descr<td><input type="text" name="descr" value="<% params.descr %>">
-<tr>
-<td>Path<td><input type="text" name="path" value="<% params.path %>">
-<td>Name<td><input type="text" name="pkgname" value="<% params.pkgname %>">
-<tr>
-<td>Category<td><input type="text" name="category" value="<% params.category %>">
-<td>Maintainer<td><input type="text" name="maintainer" value="<% params.maintainer %>">
-<tr>
-<td><td><input type="submit" value="Search!">
-</table>
+<div>
+<label for="file">File</label>
+<input type="text" name="file" id="file" value="<% params.file %>">
+</div>
+<div>
+<label for="descr">Descr</label>
+<input type="text" name="descr" id="descr" value="<% params.descr %>">
+</div>
+<div>
+<label for="path">Path</label>
+<input type="text" name="path" id="path" value="<% params.path %>">
+</div>
+<div>
+<label for="pkgname">Name</label>
+<input type="text" name="pkgname" id="pkgname" value="<% params.pkgname %>">
+</div>
+<div>
+<label for="category">Category</label>
+<input type="text" name="category" id="category" value="<% params.category %>">
+</div>
+<div>
+<label for="maintainer">Maintainer</label>
+<input type="text" name="maintainer" id="maintainer" value="<% params.maintainer %>">
+</div>
+<button type="submit">Search!</button>
 </fieldset>
 </form>
+</div>
 </div>
 <div id="footer">
 <a href="/path/databases/ports-readmes-dancer">Ports Readmes <% version %></a>, created on <% creation_date %>, powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
 </div>
 <script type="text/javascript" src="//<% request.host %>/javascripts/script.js"></script>
+</body>
+</html>
