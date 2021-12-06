@@ -123,3 +123,8 @@ white-space: pre-wrap;
 #test-depends-list, #reverse-depends-list, #files-list {
 display: none;
 }
+
+.package a {
+    min-width: 200px;
+    display: inline-block;
+}

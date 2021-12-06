@@ -32,7 +32,8 @@ $list_req->bind_columns(\($category));
 
 my $list_cat_req = $db->prepare(
 	q{select min(_paths.fullpkgpath),
-		fullpkgname
+		fullpkgname,
+		comment
 	    from _paths
 		join _Ports on _paths.id=_Ports.fullpkgpath 
 		    and _paths.id=_paths.canonical
@@ -42,8 +43,8 @@ my $list_cat_req = $db->prepare(
 		group by fullpkgname
 		order by fullpkgname
 	    });
-my ($fullpkgpath, $fullpkgname);
-$list_cat_req->bind_columns(\($fullpkgpath, $fullpkgname));
+my ($fullpkgpath, $fullpkgname, $comment);
+$list_cat_req->bind_columns(\($fullpkgpath, $fullpkgname, $comment));
 
 my $info_req = $db->prepare(
 	q{select
@@ -64,7 +65,7 @@ my $info_req = $db->prepare(
 		    on _ports.permit_package=permit.keyref
 		join _email on _ports.maintainer=_email.keyref
 	    where _paths.fullpkgpath=?});
-my ($id, $path, $simplepath, $comment, $homepage, $descr, $permit, $maintainer);
+my ($id, $path, $simplepath, $homepage, $descr, $permit, $maintainer);
 $info_req->bind_columns(\($id, $path,  $simplepath, $comment, $homepage, $descr, $fullpkgname, $permit, $maintainer));
 
 my $dep_req = $db->prepare(
@@ -167,6 +168,18 @@ my $canonical_req = $db->prepare(
 my $canonical;
 $canonical_req->bind_columns(\$canonical);
 	    
+my $full_list_req = $db->prepare(
+	q{select min(_paths.fullpkgpath),
+		fullpkgname,
+		comment
+	    from _paths
+		join _Ports on _paths.id=_Ports.fullpkgpath 
+		    and _paths.id=_paths.canonical
+		group by fullpkgname
+		order by fullpkgname
+	});
+$full_list_req->bind_columns(\($fullpkgpath, $fullpkgname, $comment));
+
 my ($version, $creation_date);
 
 my $meta_req = $db->prepare(
@@ -207,7 +220,8 @@ sub category
 	while ($list_cat_req->fetch) {
 		push(@{$e->{category}}, {
 			name => $fullpkgname,
-			url => "/path/$fullpkgpath"
+			url => "/path/$fullpkgpath",
+			comment => $comment
 		});
 	}
 	return $e;
@@ -310,6 +324,20 @@ sub canonical
 	}
 }
 
+sub full_list
+{
+	$full_list_req->execute;
+	my $e = {};
+	while ($full_list_req->fetch) {
+		push(@{$e->{packages}}, {
+		    name => $fullpkgname,
+		    url => "/path/".$fullpkgpath,
+		    comment => $comment
+		     });
+	}
+	return $e;
+}
+
 sub search
 {
 	my ($class, $search) = @_;
@@ -363,20 +391,21 @@ sub search
 		$s.= " where ".join(" and ", @where);
 	}
 	$s = qq{select
-		_paths.fullpkgpath, fullpkgname
+		_paths.fullpkgpath, fullpkgname, comment
 	    from _paths
 		join _Ports on _paths.canonical=_Ports.fullpkgpath
 		$s
 		order by fullpkgname
 		};
 	my $req = $db->prepare($s);
-	$req->bind_columns(\($fullpkgpath, $fullpkgname));
+	$req->bind_columns(\($fullpkgpath, $fullpkgname, $comment));
 	$req->execute(@params);
 	my $e = create_hash();
 	while ($req->fetch) {
 		push(@{$e->{result}}, {
 			name => $fullpkgname,
-			url => "/path/$fullpkgpath"
+			url => "/path/$fullpkgpath",
+			comment => $comment
 		});
 	}
 	return $e;

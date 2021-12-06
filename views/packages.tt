@@ -1,0 +1,12 @@
+<div id="back"><a href="/">Home</a></div>
+<h1>Package list with short descriptions</h1>
+    <ul>
+<% FOREACH p IN packages %>
+	<li>
+	    <div class="package">
+		<a href="<% p.url | url %>"><% p.name | html %></a>
+		<span><% p.comment | html %></span>
+	    </div>
+	</li>
+<% END %>
+    </ul>

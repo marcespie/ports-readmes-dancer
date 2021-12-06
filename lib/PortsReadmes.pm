@@ -33,6 +33,13 @@ get '/' => sub {
     template 'index', $e;
 };
 
+get '/packages' => sub {
+    my $search;
+    $search->{name} = '.';
+    my $e = SqlPorts->full_list;
+    template 'packages', $e;
+};
+
 get qr{/cat/([\w\/]+)} => sub {
 	my ($cat) = splat;
 	my $e = SqlPorts->category($cat);

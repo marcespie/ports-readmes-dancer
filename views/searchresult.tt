@@ -3,7 +3,7 @@
 <div class="three">
     <ul>
 <% FOREACH c IN result %>
-    <li><a href="<% c.url | url %>"><% c.name | html %></a>
+    <li><a href="<% c.url | url %>"><% c.name | html %></a> - <% c.comment | html %>
 <% END %>
     </ul>
 </div>
