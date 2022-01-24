@@ -40,7 +40,7 @@ get '/packages' => sub {
     template 'packages', $e;
 };
 
-get qr{/cat/([\w-\/]+)} => sub {
+get qr{/cat/([\w\-\/]+)} => sub {
 	my ($cat) = splat;
 	my $e = SqlPorts->category($cat);
 	make_title($e, "category $cat");
@@ -48,7 +48,7 @@ get qr{/cat/([\w-\/]+)} => sub {
 	template 'category', $e;
 };
 
-get qr{/path/([\w,-\/\+]+)} => sub {
+get qr{/path/([\w,\-\/\+]+)} => sub {
 	my ($p) = splat;
 	my $e = SqlPorts->pkgpath($p);
 	if (defined $e) {
