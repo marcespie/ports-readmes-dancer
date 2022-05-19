@@ -20,7 +20,7 @@
 <input type="text" name="file" id="file" value="<% params.file %>">
 </div>
 <div>
-<label for="descr">Descr</label>
+<label for="descr">Descr/Comment</label>
 <input type="text" name="descr" id="descr" value="<% params.descr %>">
 </div>
 <div>
