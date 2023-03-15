@@ -192,7 +192,7 @@ while ($meta_req->fetch) {
 sub run_locate
 {
 	my ($param, $e, $sub) = @_;
-	if (open(my $fh, "-|", config->{pkglocate}, $param)) {
+	if (open(my $fh, "-|", config->{pkglocate}, '--', $param)) {
 		while(<$fh>) {
 			&$sub($_);
 		}
