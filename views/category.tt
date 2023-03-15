@@ -1,4 +1,3 @@
-<div id="back"><a href="/">Home</a></div>
 <h1>Category <% name %></h1>
 <div class="three">
     <ul>

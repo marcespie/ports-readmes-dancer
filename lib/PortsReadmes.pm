@@ -30,6 +30,7 @@ sub make_title
 get '/' => sub {
     my $e = SqlPorts->listing;
     make_title($e);
+    $e->{home} = 1;
     template 'index', $e;
 };
 

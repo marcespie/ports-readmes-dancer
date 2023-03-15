@@ -1,5 +1,4 @@
 <div class="long">
-<div id="back"><a href="/">Home</a></div>
 <h1>The <% path | html %> port</h1>
 </div>
 

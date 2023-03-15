@@ -1,4 +1,3 @@
-<div id="back"><a href="/">Home</a></div>
 <h1>Package list with short descriptions</h1>
     <ul>
 <% FOREACH p IN packages %>

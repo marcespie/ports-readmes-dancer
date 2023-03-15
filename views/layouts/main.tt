@@ -9,10 +9,14 @@
 <script src="//<% request.host %>/javascripts/jquery.js"></script>
 </head>
 <body>
+<div id="content">
+<% IF home %>
+<% ELSE %>
+<div id="back"><a href="/">Home</a></div>
+<% END %>
 <% IF error %>
 <div class="long"><h1>Error: <% error | html %></h1>
 <% END %>
-<div id="content">
 <% content %>
 <div id="search_form" class="search_form">
 <form name="Search" action="/search">
