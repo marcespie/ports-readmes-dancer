@@ -9,6 +9,9 @@
 <script src="//<% request.host %>/javascripts/jquery.js"></script>
 </head>
 <body>
+<% IF error %>
+<div class="long"><h1>Error: <% error | html %></h1>
+<% END %>
 <div id="content">
 <% content %>
 <div id="search_form" class="search_form">

@@ -189,6 +189,21 @@ $meta_req->execute;
 while ($meta_req->fetch) {
 }
 
+sub run_locate
+{
+	my ($param, $e, $sub) = @_;
+	if (open(my $fh, "-|", config->{pkglocate}, $param)) {
+		while(<$fh>) {
+			&$sub($_);
+		}
+		if (!close($fh)) {
+			$e->{error} = "running pkglocate $param failed: $! $?";
+		}
+	} else {
+		$e->{error} = "problem creating pipe to pkglocate";
+	}
+}
+
 sub create_hash
 {
 	return {
@@ -264,14 +279,13 @@ sub pkgpath
 			url => "/path/$revpath"
 		    });
 	}
-	if (open(my $fh, "-|", config->{pkglocate}, ":$path:")) {
-		while (<$fh>) {
-			if (m/^\Q$fullpkgname\E:\Q$path\E:(.*)/) {
-				push(@{$e->{files}}, $1);
-			}
-		}
-		close $fh;
-	}
+	run_locate(":$path:", $e,
+	    sub {
+		    $_ = shift;
+		    if (m/^\Q$fullpkgname\E:\Q$path\E:(.*)/) {
+			    push(@{$e->{files}}, $1);
+		    }
+	    });
 
 	$broken_req->execute($id);
 	while ($broken_req->fetch) {
@@ -344,19 +358,20 @@ sub search
 	my $s = "";
 	my @params = ();
 	my @where = ();
+	my $e = create_hash();
 
 	if ($search->{file}) {
 		my %h;
-		if (open(my $fh, "-|", config->{pkglocate}, $search->{file})) {
-			while (<$fh>) {
-				next unless m/^.*?\:(.*?)\:(.*)/;
-				my ($pkgpath, $filepath) = ($1, $2);
-				next unless $filepath =~ m/\Q$search->{file}\E/;
-				$h{$pkgpath} = 1;
-			}
-			close $fh;
-			push(@where, "_paths.fullpkgpath in (".join(', ', map {$db->quote($_)} keys %h).")");
-		}
+		run_locate($search->{file}, $e,
+		    sub {
+			    $_ = shift;
+			    return unless m/^.*?\:(.*?)\:(.*)/;
+			    my ($pkgpath, $filepath) = ($1, $2);
+			    return unless $filepath =~ m/\Q$search->{file}\E/;
+			    $h{$pkgpath} = 1;
+		    });
+		push(@where, "_paths.fullpkgpath in (".
+		    join(', ', map {$db->quote($_)} keys %h).")");
 	}
 
 	if ($search->{descr}) {
@@ -400,7 +415,6 @@ sub search
 	my $req = $db->prepare($s);
 	$req->bind_columns(\($fullpkgpath, $fullpkgname, $comment));
 	$req->execute(@params);
-	my $e = create_hash();
 	while ($req->fetch) {
 		push(@{$e->{result}}, {
 			name => $fullpkgname,
