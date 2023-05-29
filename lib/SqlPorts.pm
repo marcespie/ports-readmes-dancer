@@ -14,7 +14,7 @@
 #
 package SqlPorts;
 use DBI;
-use Dancer ':syntax';
+use Dancer2;
 use v5.36;
 
 my $db = DBI->connect("dbi:SQLite:dbname=".config->{database}, '', '', 

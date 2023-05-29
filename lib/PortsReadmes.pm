@@ -13,7 +13,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
 package PortsReadmes;
-use Dancer ':syntax';
+use Dancer2;
 use SqlPorts;
 use strict;
 use warnings;

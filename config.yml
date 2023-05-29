@@ -25,10 +25,11 @@ charset: "UTF-8"
 # environment: user
 
 template: "template_toolkit"
-#engines:
-#   template_toolkit:
-#     start_tag: '[%'
-#     end_tag:   '%]'
+engines:
+  template:
+    template_toolkit:
+      start_tag: '<%'
+      end_tag:   '%>'
 
 database: /usr/local/share/sqlports
 pkglocate: /usr/local/bin/pkg_locate
