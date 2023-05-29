@@ -15,8 +15,7 @@
 package SqlPorts;
 use DBI;
 use Dancer ':syntax';
-use strict;
-use warnings;
+use v5.36;
 
 my $db = DBI->connect("dbi:SQLite:dbname=".config->{database}, '', '', 
     {ReadOnly => 1});
@@ -189,9 +188,8 @@ $meta_req->execute;
 while ($meta_req->fetch) {
 }
 
-sub run_locate
+sub run_locate($, $param, $e, $sub)
 {
-	my ($param, $e, $sub) = @_;
 	if (open(my $fh, "-|", config->{pkglocate}, '--', $param)) {
 		while(<$fh>) {
 			&$sub($_);
@@ -204,16 +202,16 @@ sub run_locate
 	}
 }
 
-sub create_hash
+sub create_hash($, %p)
 {
 	return {
 	    version => $version,
 	    creation_date => $creation_date,
-	    @_
+	    %p
 	};
 }
 
-my $e = create_hash();
+my $e = SqlPorts->create_hash;
 $list_req->execute;
 while ($list_req->fetch) {
 	push(@{$e->{categories}}, {
@@ -222,16 +220,15 @@ while ($list_req->fetch) {
 	});
 }
 
-sub listing
+sub listing($)
 {
 	return $e;
 }
 
-sub category
+sub category($class, $cat)
 {
-	my ($class, $cat) = @_;
 	$list_cat_req->execute($cat);
-	my $e = create_hash( name => $cat );
+	my $e = $class->create_hash( name => $cat );
 	while ($list_cat_req->fetch) {
 		push(@{$e->{category}}, {
 			name => $fullpkgname,
@@ -242,9 +239,8 @@ sub category
 	return $e;
 }
 
-sub pkgpath
+sub pkgpath($class, $p)
 {
-	my ($class, $p) = @_;
 	my @depends = (qw(libdepends rundepends builddepends testdepends));
 
 	$info_req->execute($p);
@@ -253,7 +249,7 @@ sub pkgpath
 	}
 	# zap the email part
 	$maintainer =~ s/\s+\<.*?\>//g;
-	my $e = create_hash( path => $path,
+	my $e = $class->create_hash( path => $path,
 		simplepath => $simplepath,
 		comment => $comment,
 		homepage => $homepage,
@@ -279,10 +275,9 @@ sub pkgpath
 			url => "/path/$revpath"
 		    });
 	}
-	run_locate(":$path:", $e,
-	    sub {
-		    $_ = shift;
-		    if (m/^\Q$fullpkgname\E:\Q$path\E:(.*)/) {
+	$class->run_locate(":$path:", $e,
+	    sub($l) {
+		    if ($l =~ m/^\Q$fullpkgname\E:\Q$path\E:(.*)/) {
 			    push(@{$e->{files}}, $1);
 		    }
 	    });
@@ -327,9 +322,8 @@ sub pkgpath
 	return $e;
 }
 
-sub canonical
+sub canonical($class, $path)
 {
-	my ($class, $path) = @_;
 	$canonical_req->execute($path);
 	if ($canonical_req->fetch) {
 		return $canonical;
@@ -338,7 +332,7 @@ sub canonical
 	}
 }
 
-sub full_list
+sub full_list($class)
 {
 	$full_list_req->execute;
 	my $e = {};
@@ -352,20 +346,18 @@ sub full_list
 	return $e;
 }
 
-sub search
+sub search($class, $search)
 {
-	my ($class, $search) = @_;
 	my $s = "";
 	my @params = ();
 	my @where = ();
-	my $e = create_hash();
+	my $e = $class->create_hash;
 
 	if ($search->{file}) {
 		my %h;
-		run_locate($search->{file}, $e,
-		    sub {
-			    $_ = shift;
-			    return unless m/^.*?\:(.*?)\:(.*)/;
+		$class->run_locate($search->{file}, $e,
+		    sub($l) {
+			    return unless $l =~ m/^.*?\:(.*?)\:(.*)/;
 			    my ($pkgpath, $filepath) = ($1, $2);
 			    return unless $filepath =~ m/\Q$search->{file}\E/;
 			    $h{$pkgpath} = 1;
