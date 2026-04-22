@@ -13,16 +13,14 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
 package PortsReadmes;
+use v5.36;
 use Dancer2;
 use SqlPorts;
-use strict;
-use warnings;
 
 our $VERSION = '0.1';
 
-sub make_title
+sub make_title($e)
 {
-	my $e = shift;
 	$e->{title} = join(": ", "OpenBSD Ports Readme", @_);
 }
 
