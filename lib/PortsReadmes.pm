@@ -19,9 +19,9 @@ use SqlPorts;
 
 our $VERSION = '0.1';
 
-sub make_title($e)
+sub make_title($e, @p)
 {
-	$e->{title} = join(": ", "OpenBSD Ports Readme", @_);
+	$e->{title} = join(": ", "OpenBSD Ports Readme", @p);
 }
 
 
